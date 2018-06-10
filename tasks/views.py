@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from tasks.models import customer, taskDetails, joiningTask
-from tasks.serializers import customerSerializer
+from tasks.serializers import customerSerializer, taskSerializer
 
 
 def index(request):
@@ -27,15 +27,17 @@ def customerList(request):
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
-def customerDetails(request,pk):
+@csrf_exempt
+def customerDetails(request, pk):
     try:
         customer1 = customer.objects.get(pk=pk)
+        tasksTaken = customer1.taskdetails_set.all()
     except customer.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = customerSerializer(customer1)
-        return JsonResponse(serializer.data)
+        serializer = taskSerializer(tasksTaken, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
@@ -49,8 +51,46 @@ def customerDetails(request,pk):
         customer.delete()
         return HttpResponse(status=204)
 
+@csrf_exempt
+def taskList(request):
+
+    if request.method == 'GET':
+        tasks = taskDetails.objects.all()
+        serializer = taskSerializer(tasks,many=True )
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == "POST":
+        data = JSONParser().parse(request)
+        serializer = taskSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
 
 
+@csrf_exempt
+def taskSpecifics(request, pk):
+    try:
+        tasker = taskDetails.objects.get(pk=pk)
+
+    except taskDetails.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = taskSerializer(tasker)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = taskSerializer(tasker, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        taskDetails.delete()
+        return HttpResponse(status=204)
 
 
 
