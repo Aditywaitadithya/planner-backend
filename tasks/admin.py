@@ -11,5 +11,5 @@ class TaskAdmin(admin.ModelAdmin):
 # Register your models here.
 
 admin.site.register(customer)
-admin.site.register(taskDetails,TaskAdmin)
+admin.site.register(taskDetails, TaskAdmin)
 admin.site.register(joiningTask)

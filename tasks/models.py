@@ -4,7 +4,6 @@ class customer(models.Model):
     username = models.CharField(max_length=400)
     password = models.CharField(max_length=400)
     email_id = models.EmailField(max_length=600)
-
     def __str__(self):
         return self.username
   #  tasks_associated = solve this conundrum
