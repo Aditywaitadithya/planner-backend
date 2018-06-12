@@ -13,12 +13,13 @@ def index(request):
 
 @csrf_exempt
 def customerList(request):
-
+    #get method
     if request.method == 'GET':
         customers = customer.objects.all()
         serializer=customerSerializer(customers,many=True )
         return JsonResponse(serializer.data, safe=False)
 
+    #post method to the customer database
     elif request.method =="POST":
         data = JSONParser().parse(request)
         serializer = customerSerializer(data=data)
@@ -30,11 +31,16 @@ def customerList(request):
 @csrf_exempt
 def customerDetails(request, pk):
     try:
+        # variable to get the particular customer
         customer1 = customer.objects.get(pk=pk)
+
+        # variable to access the tasks associated with the customer1 variable
         tasksTaken = customer1.taskdetails_set.all()
+
     except customer.DoesNotExist:
         return HttpResponse(status=404)
 
+    #get method to get the tasks associated with a customer as json
     if request.method == 'GET':
         serializer = taskSerializer(tasksTaken, many=True)
         return JsonResponse(serializer.data, safe=False)

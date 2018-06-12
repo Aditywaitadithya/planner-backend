@@ -17,8 +17,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 urlpatterns = [
-
+    #to visit the admin site
     url(r'^admin/', admin.site.urls),
+
+    # to visit the tasks app
     url(r'^', include('tasks.urls')),
 
 

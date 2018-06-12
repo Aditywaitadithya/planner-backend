@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from tasks.models import customer,taskDetails, joiningTask
 
+
+# file added to add the modelserializer to all the classes of the database
 class customerSerializer(serializers.ModelSerializer):
     class Meta:
         model = customer
