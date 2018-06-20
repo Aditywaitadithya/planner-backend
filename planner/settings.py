@@ -25,8 +25,7 @@ SECRET_KEY = 'z&fg$8a4)g+zf%558h6=$npa788)&^7_ydbpi*s=244$%5#wdd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['192.168.1.100']
 
 # Application definition
 
