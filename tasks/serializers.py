@@ -6,19 +6,19 @@ from tasks.models import customer,taskDetails, joiningTask
 class customerSerializer(serializers.ModelSerializer):
     class Meta:
         model = customer
-        fields = ('username', 'password', 'email_id')
+        fields = ('username', 'password', 'email_id','id')
 
 
 class taskSerializer(serializers.ModelSerializer):
     class Meta:
         model = taskDetails
-        fields = ('taskName', 'taskDate', 'taskTime', 'location', 'customersInvolved')
+        fields = ('taskName', 'taskDate', 'taskTime', 'location', 'customersInvolved','id')
 
 
 class joiningSerializer(serializers.ModelSerializer):
     class Meta:
         model = joiningTask
-        fields = ('customer', 'taskDetails', 'dateOfJoining')
+        fields = ('customer', 'taskDetails', 'dateOfJoining','id')
 
 
 

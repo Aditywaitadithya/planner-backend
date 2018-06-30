@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from tasks.models import customer, taskDetails, joiningTask
-from tasks.serializers import customerSerializer, taskSerializer
+from tasks.serializers import customerSerializer, taskSerializer , joiningSerializer
 
 
 def index(request):
@@ -99,4 +99,18 @@ def taskSpecifics(request, pk):
         return HttpResponse(status=204)
 
 
+@csrf_exempt
+def joiningList(request):
 
+    if request.method == 'GET':
+        joiningDetails = joiningTask.objects.all()
+        serializer = joiningSerializer(joiningDetails,many=True )
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == "POST":
+        data = JSONParser().parse(request)
+        serializer = joiningSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)

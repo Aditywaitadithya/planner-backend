@@ -15,4 +15,7 @@ urlpatterns = [
     #shows the details of the individual tasks
     url(r'^tasks/(?P<pk>[0-9]+)/$', views.taskSpecifics),
 
+    #shows the joining record of the peeps
+    url(r'^joiningRecord/$', views.joiningList),
+
 ]
