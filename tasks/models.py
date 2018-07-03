@@ -17,7 +17,7 @@ class taskDetails(models.Model):
     taskDate = models.DateField('date set',null=True)
     taskTime = models.TimeField('time set',null=True)
     location = models.CharField(max_length=1000)
-    customersInvolved = models.ManyToManyField(customer, through='joiningTask', null=True)
+    customersInvolved = models.ManyToManyField(customer, through='joiningTask')
 
     def __str__(self):
         return self.taskName
@@ -29,8 +29,7 @@ class joiningTask(models.Model):
     taskDetails = models.ForeignKey(taskDetails, on_delete=models.CASCADE)
     dateOfJoining = models.DateField('date set',null=True)
 
-    def __str__(self):
-        return self.pk
+
 
 
 

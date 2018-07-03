@@ -114,3 +114,26 @@ def joiningList(request):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
+
+@csrf_exempt
+def customerFinalTask(request, pk):
+    try:
+        # variable to get the particular customer
+        tasks = taskDetails.objects.all()
+        countOfTasks=tasks.count()
+
+        # variable to access the tasks associated with the customer1 variable
+
+        finalTask=taskDetails.objects.get(pk=countOfTasks)
+
+    except customer.DoesNotExist:
+        return HttpResponse(status=404)
+
+    #get method to get the tasks associated with a customer as json
+    if request.method == 'GET':
+        serializer = taskSerializer(finalTask)
+        return JsonResponse(serializer.data)
+
+
+
