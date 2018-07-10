@@ -18,6 +18,7 @@ urlpatterns = [
     #shows the joining record of the peeps
     url(r'^joiningRecord/$', views.joiningList),
 
+
     url(r'^customers/(?P<pk>[0-9]+)/lastTask/$', views.customerFinalTask),
 
 ]

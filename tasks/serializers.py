@@ -12,7 +12,7 @@ class customerSerializer(serializers.ModelSerializer):
 class taskSerializer(serializers.ModelSerializer):
     class Meta:
         model = taskDetails
-        fields = ('taskName', 'taskDate', 'taskTime', 'location','id','customersInvolved')
+        fields = ('taskName', 'taskDate', 'taskTime', 'location','id','customersInvolved','isAlarmTrue')
 
 
 class joiningSerializer(serializers.ModelSerializer):

@@ -18,7 +18,7 @@ class taskDetails(models.Model):
     taskTime = models.TimeField('time set',null=True)
     location = models.CharField(max_length=1000)
     customersInvolved = models.ManyToManyField(customer, through='joiningTask')
-
+    isAlarmTrue = models.BooleanField(default=False)
     def __str__(self):
         return self.taskName
 

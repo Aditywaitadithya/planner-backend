@@ -125,7 +125,7 @@ def customerFinalTask(request, pk):
 
         # variable to access the tasks associated with the customer1 variable
 
-        finalTask=taskDetails.objects.get(pk=countOfTasks)
+        finalTask=tasks[countOfTasks-1]
 
     except customer.DoesNotExist:
         return HttpResponse(status=404)
